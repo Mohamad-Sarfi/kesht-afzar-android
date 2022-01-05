@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddGardenActivity"
+    android:background="@color/main_green"
+
+    >
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/sprout_white"
+        android:layout_marginTop="60dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/baseet"
+        android:text="افزودن باغ جدید"
+        android:textSize="44sp"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/imageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        android:id="@+id/TVAddGarden"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gardenRegister1"
+        app:layout_constraintTop_toBottomOf="@id/TVAddGarden"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_marginTop="35dp"
+        android:visibility="gone"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/et_back"
+            android:hint="نام باغ"
+            android:textColor="@color/main_green"
+            android:textAlignment="center"
+            android:id="@+id/gardenNameET"
+            style="@style/titleTexts"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/et_back"
+            android:hint="متوسط سن درختان"
+            android:textColor="@color/main_green"
+            android:textAlignment="center"
+            style="@style/titleTexts"
+            android:id="@+id/gardenAgeET"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:inputType="number"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/gardenRegister2"
+        app:layout_constraintTop_toBottomOf="@id/TVAddGarden"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:paddingStart="50dp"
+        android:paddingEnd="50dp"
+        android:layout_marginTop="35dp"
+        android:visibility="visible"
+        >
+
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/et_back"
+            android:textAlignment="textEnd"
+            android:tooltipText="@string/user"
+
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:id="@+id/gardenRigisterNextBtn"
+        android:text="بعدی"
+        android:textColor="@color/main_green"
+        style="@style/titleTexts"
+        android:background="@drawable/et_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"
+    />
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="70dp"
+        android:id="@+id/gardenRigisterFinishBtn"
+        android:text="پایان"
+        android:textColor="@color/main_green"
+        style="@style/titleTexts"
+        android:background="@drawable/et_back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="40dp"
+        android:visibility="invisible"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

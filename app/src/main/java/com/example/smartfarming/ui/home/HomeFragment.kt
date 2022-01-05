@@ -1,13 +1,19 @@
 package com.example.smartfarming.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
+import com.example.smartfarming.AddGardenActivity
+import com.example.smartfarming.MainActivity
 import com.example.smartfarming.R
 import com.example.smartfarming.databinding.FragmentHomeBinding
 
@@ -30,11 +36,9 @@ class HomeFragment : Fragment() {
 
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
+        visiblityOfAddFirstGarden()
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
+
         return root
     }
 
@@ -42,4 +46,19 @@ class HomeFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    private fun visiblityOfAddFirstGarden(){
+        if (homeViewModel.gardensNumber != 0){
+            binding.addFirstGardenLayout.visibility = View.INVISIBLE;
+        }
+        else {
+            binding.addFirstGardenLayout.setOnClickListener{
+                val intent = Intent(this@HomeFragment.context, AddGardenActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+
+
 }
