@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartFarming">
         <activity
-            android:name=".AddGardenActivity"
+            android:name=".addgarden.AddGardenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

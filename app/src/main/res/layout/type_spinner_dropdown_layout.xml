@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    style="@style/titleTexts"
+    android:textColor="@color/main_green"
+    android:maxLines="1"
+    android:textAlignment="textEnd"
+    android:padding="3dp"
+    android:background="@drawable/et_back"
+    />

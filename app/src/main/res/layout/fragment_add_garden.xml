@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:background="@drawable/et_back"
+            android:elevation="3dp"
+            android:id="@+id/gardenNameET"
+            android:hint="نام باغ را وارد کنید"
+            android:layout_margin="30dp"
+            android:layoutDirection="rtl"
+            style="@style/titleTexts"
+            android:padding="3dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/main_green"
+            android:maxLines="1"
+            />
+
+        <EditText
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/gardenNameET"
+            android:layout_width="250dp"
+            android:layout_height="70dp"
+            android:background="@drawable/et_back"
+            android:elevation="3dp"
+            android:id="@+id/gardenAgeET"
+            android:inputType="number"
+            android:layout_margin="30dp"
+            android:hint="سن باغ را وارد کنید"
+            android:layoutDirection="rtl"
+            style="@style/titleTexts"
+            android:padding="3dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp"
+            android:textColor="@color/main_green"
+            android:maxLines="1"
+
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

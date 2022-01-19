@@ -11,6 +11,8 @@
     <string name="user">پروفایل</string>
     <string name="home">خانه</string>
     <string name="orchard">باغ ها</string>
+    <string name="next">بعدی</string>
+    <string name="submit">ثبت</string>
 
     <string-array name="pistachio_types">
         <item>اکبری</item>
@@ -23,5 +25,6 @@
         <item>رد آلپو</item>
         <item>کرمان</item>
     </string-array>
+
 
 </resources>
