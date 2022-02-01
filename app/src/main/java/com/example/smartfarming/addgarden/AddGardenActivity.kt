@@ -4,9 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +22,9 @@ class AddGardenActivity : AppCompatActivity() {
     private lateinit var viewpager : ViewPager2
     private lateinit var viewModel: AddGardenViewModel
 
+    private lateinit var counterTV : TextView
+    private lateinit var imageView: ImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddGardenBinding.inflate(layoutInflater)
@@ -34,11 +35,11 @@ class AddGardenActivity : AppCompatActivity() {
         viewpager = binding.addGardenPager
         val pagerAdapter =  AddGardenPagerAdapter(this)
         viewpager.adapter = pagerAdapter
-
+        viewpager.isUserInputEnabled = false
 
         val nextButton = binding.nextButton
-        val counterTV = binding.counterTV
-
+        counterTV = binding.counterTV
+        //imageView = binding.backgroundImage
 
 
         //Next-button click handler
@@ -47,15 +48,16 @@ class AddGardenActivity : AppCompatActivity() {
                 nextButton.text = "ثبت"
 
             }
-            else if (viewpager.currentItem == 0) {
+            else if (viewpager.currentItem == 0 && viewModel.getGardenName()!!.length < 3) {
 
-                if (viewModel.getGardenName()!!.length < 3){
-                    Toast.makeText(this, "نام باغ را به شکل صحیح وارد کنید", Toast.LENGTH_SHORT ).show()
-                }
-                else {
-                    viewpager.currentItem = viewpager.currentItem + 1
-                    counterTV.text = (viewpager.currentItem + 1).toString()
-                }
+                var name = viewModel.getGardenName()
+
+                Toast.makeText(this, "نام و متوسط سن درختان باغ را وارد کنید", Toast.LENGTH_SHORT ).show()
+                Log.i("GName", "")
+            }
+            else {
+                viewpager.currentItem = viewpager.currentItem + 1
+
             }
         }
 
@@ -76,6 +78,12 @@ class AddGardenActivity : AppCompatActivity() {
     private inner class AddGardenPagerAdapter(fa : FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = NUM_PAGES
 
+        override fun getItemId(position: Int): Long {
+            val textValue = position + 1
+            counterTV.text = textValue.toString()
+
+            return super.getItemId(position)
+        }
 
         override fun createFragment(position: Int): Fragment {
             return when (position) {

@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.smartfarming">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +13,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartFarming">
+        <activity
+            android:name=".addactivities.AddActivities"
+            android:exported="false"
+            android:label="@string/title_activity_add_activities"
+            android:theme="@style/Theme.SmartFarming" />
+        <activity
+            android:name=".adduser.AddUserActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_user"
+            android:theme="@style/Theme.SmartFarming" />
         <activity
             android:name=".addgarden.AddGardenActivity"
             android:exported="false" />

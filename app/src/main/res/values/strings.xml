@@ -26,5 +26,27 @@
         <item>کرمان</item>
     </string-array>
 
+    <string-array name="garden_area">
+        <item>کمتر از نیم هکتار</item>
+        <item>نیم تا 1 هکتار</item>
+        <item>1 تا 2 هکتار</item>
+        <item>2 تا 4 هکتار</item>
+        <item>4 تا 6 هکتار</item>
+        <item>6 تا 10 هکتار</item>
+        <item>بیشتر از 10 هکتار</item>
+    </string-array>
+
+    <string-array name="garden_area_num">
+        <item>0.5</item>
+        <item>1</item>
+        <item>2</item>
+        <item>4</item>
+        <item>6</item>
+        <item>10</item>
+        <item>10+</item>
+    </string-array>
+    <string name="title_activity_add_user">AddUserActivity</string>
+    <string name="title_activity_add_activities">AddActivities</string>
+
 
 </resources>

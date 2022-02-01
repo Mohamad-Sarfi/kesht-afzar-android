@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
@@ -29,54 +31,49 @@ class AddGardenFragment : Fragment() {
 
         val gardenNameET = binding.gardenNameET
         val gardenAgeET = binding.gardenAgeET
+        val spinner = binding.gardenAreaSpinner
 
-        gardenNameET.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.i("before", "$s")
+        gardenAgeET.setOnFocusChangeListener { v, hasFocus ->
+            updateViewModel(gardenNameET.text.toString(), gardenAgeET.text.toString())
+        }
+
+
+        // Spinner
+        ArrayAdapter.createFromResource(
+            requireContext(),
+            R.array.garden_area,
+            R.layout.my_spinner_layout
+        ).also { adapter ->
+            adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+            spinner.adapter = adapter
+        }
+
+        val arrayOfAreas = resources.getStringArray(R.array.garden_area_num)
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+
             }
 
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.i("on change", "$s")
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+
             }
+        }
 
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString().length < 3){
-                    Toast.makeText(activity, "نام باغ را بصورت کامل وارد کنید", Toast.LENGTH_SHORT).show()
-                }
-                else {
-                    viewModel.setGardenName(s.toString())
-                }
-            }
-
-
-
-        })
-
-        gardenAgeET.addTextChangedListener(object : TextWatcher{
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                Log.i("before", "$s")
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                Log.i("before", "$s")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString().isEmpty()){
-                    Toast.makeText(activity, "سن باغ را وارد کنید", Toast.LENGTH_SHORT).show()
-                }
-                else{
-                    viewModel.setGardenAge(s.toString())
-                }
-            }
-
-        })
 
         return binding.root
 
     }
 
-
+    private fun updateViewModel(name : String, age: String){
+        viewModel.setGardenName(name)
+        viewModel.setGardenAge(age)
+    }
 
 
 }

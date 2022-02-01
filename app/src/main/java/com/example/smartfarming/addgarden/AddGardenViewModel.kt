@@ -16,6 +16,10 @@ class AddGardenViewModel : ViewModel() {
         value = "0"
     }
 
+    private var location = MutableLiveData<Map<String, String>>().apply {
+        value = mutableMapOf("lat" to "", "long" to "")
+    }
+
 
 
     fun addType(newType : String){
@@ -51,5 +55,9 @@ class AddGardenViewModel : ViewModel() {
     }
 
     fun getGardenAge() : String? = gardenAge.value
+
+    fun setLocation(lat : String, lon : String){
+        location.value = mutableMapOf("lat" to lat, "long" to lon)
+    }
 
 }

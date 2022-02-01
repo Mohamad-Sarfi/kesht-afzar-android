@@ -24,7 +24,7 @@
             android:layout_width="162dp"
             android:layout_height="147dp"
             android:src="@drawable/sprout"
-            android:layout_marginBottom="17dp"
+            android:layout_marginBottom="13dp"
          />
 
         <TextView
@@ -34,43 +34,12 @@
             android:text="اولین باغ خود را اضافه کنید"
             tools:layout_editor_absoluteX="169dp"
             tools:layout_editor_absoluteY="163dp"
-            android:textSize="28sp"
-            android:fontFamily="@font/baseet"
+            style="@style/titleTexts"
+            android:textSize="23sp"
             />
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="180dp"
-        app:layout_constraintTop_toBottomOf="@id/addFirstGardenLayout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="30dp"
-        >
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:id="@+id/dailyInsightsLayout"
-        android:orientation="horizontal"
-        android:gravity="center"
-        >
-        <LinearLayout
-            android:layout_width="160dp"
-            android:layout_height="160dp"
-            android:elevation="10dp"
-            android:gravity="center"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="آبیاری فروردین"
-                android:textSize="25sp"
-                android:fontFamily="@font/baseet"
-                />
-        </LinearLayout>
-    </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
 
 
 

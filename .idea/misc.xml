@@ -3,9 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/drawable/card_back.xml" value="0.18229166666666666" />
         <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/drawable/et_back.xml" value="0.1125" />
+        <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/drawable/fab_back.xml" value="0.21203703703703702" />
         <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/layout/activity_add_garden.xml" value="0.1" />
-        <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/layout/activity_main.xml" value="0.18" />
         <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/layout/add_garden_viewpager2.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/layout/fragment_add_garden.xml" value="0.16847826086956522" />
         <entry key="..\:/Users/Mohamad/AndroidStudioProjects/Smartfarming/app/src/main/res/layout/fragment_add_garden2.xml" value="0.16847826086956522" />

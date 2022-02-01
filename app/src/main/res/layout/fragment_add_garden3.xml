@@ -14,7 +14,7 @@
         style="@style/titleTexts"
         android:textColor="@color/white"
         android:text="موقعیت جغرافیایی باغ را مشخص کنید"
-        android:textSize="28sp"
+        android:textSize="20sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,5 +32,35 @@
         android:background="@drawable/location"
         android:layout_marginTop="20dp"
         />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/locationLO"
+        app:layout_constraintTop_toBottomOf="@id/locationButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lat"
+            style="@style/planttype"
+            android:text="Lat: "
+            android:maxLength="10"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lon"
+            style="@style/planttype"
+            android:text="Long: "
+            android:maxLength="11"
+            android:textColor="@color/white"
+            />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
