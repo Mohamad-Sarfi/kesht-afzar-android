@@ -1,4 +1,4 @@
-package com.example.smartfarming.addgarden
+package com.example.smartfarming.ui.addgarden
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

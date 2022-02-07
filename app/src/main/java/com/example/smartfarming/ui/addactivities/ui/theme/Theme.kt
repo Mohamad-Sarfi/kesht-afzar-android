@@ -1,4 +1,4 @@
-package com.example.smartfarming.adduser.ui.theme
+package com.example.smartfarming.ui.addactivities.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme

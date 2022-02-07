@@ -1,8 +1,7 @@
-package com.example.smartfarming.addgarden
+package com.example.smartfarming.ui.addgarden
 
 import android.annotation.SuppressLint
 import android.content.res.Resources
-import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,14 +12,10 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.core.view.setPadding
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.example.smartfarming.R
 import com.example.smartfarming.databinding.FragmentAddGarden2Binding
-import kotlin.math.log
 
 class AddGardenFragment2 : Fragment() {
 

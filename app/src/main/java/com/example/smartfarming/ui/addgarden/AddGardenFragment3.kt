@@ -1,7 +1,6 @@
-package com.example.smartfarming.addgarden
+package com.example.smartfarming.ui.addgarden
 
 import android.content.Context
-import android.content.Context.LOCATION_SERVICE
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
@@ -12,17 +11,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextClock
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
-import com.example.smartfarming.R
 import com.example.smartfarming.databinding.FragmentAddGarden3Binding
 import com.google.android.gms.location.*
-import java.util.jar.Manifest
 
 
 // This fragment gets user location.

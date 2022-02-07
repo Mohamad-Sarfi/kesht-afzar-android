@@ -1,16 +1,14 @@
-package com.example.smartfarming.addgarden
+package com.example.smartfarming.ui.addgarden
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.example.smartfarming.R
 import com.example.smartfarming.databinding.ActivityAddGardenBinding
 
 private const val  NUM_PAGES = 4

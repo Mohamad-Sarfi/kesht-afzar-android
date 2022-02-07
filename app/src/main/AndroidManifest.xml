@@ -14,17 +14,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartFarming">
         <activity
-            android:name=".addactivities.AddActivities"
+            android:name="com.example.smartfarming.ui.addactivities.IrrigationActivity"
+            android:exported="false"
+            android:label="@string/title_activity_irrigation"
+            android:theme="@style/Theme.SmartFarming" />
+        <activity
+            android:name="com.example.smartfarming.ui.addactivities.AddActivities"
             android:exported="false"
             android:label="@string/title_activity_add_activities"
             android:theme="@style/Theme.SmartFarming" />
         <activity
-            android:name=".adduser.AddUserActivity"
+            android:name="com.example.smartfarming.ui.adduser.AddUserActivity"
             android:exported="false"
             android:label="@string/title_activity_add_user"
             android:theme="@style/Theme.SmartFarming" />
         <activity
-            android:name=".addgarden.AddGardenActivity"
+            android:name="com.example.smartfarming.ui.addgarden.AddGardenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

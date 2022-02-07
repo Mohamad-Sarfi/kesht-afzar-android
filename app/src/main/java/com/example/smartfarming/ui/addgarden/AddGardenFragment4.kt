@@ -1,4 +1,4 @@
-package com.example.smartfarming.addgarden
+package com.example.smartfarming.ui.addgarden
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,8 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModel
-import com.example.smartfarming.R
 import com.example.smartfarming.databinding.FragmentAddGarden4Binding
 
 class AddGardenFragment4 : Fragment() {

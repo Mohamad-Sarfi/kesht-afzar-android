@@ -1,4 +1,4 @@
-package com.example.smartfarming.adduser.ui.theme
+package com.example.smartfarming.ui.adduser.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import com.example.smartfarming.R
 
 
-private val sina = FontFamily(
+val sina = FontFamily(
     Font(R.font.sina)
 )
 
