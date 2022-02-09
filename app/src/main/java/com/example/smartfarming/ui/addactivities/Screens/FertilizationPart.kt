@@ -97,6 +97,10 @@ fun FertilizationFields(){
         mutableStateOf("")
     }
 
+    var fertilizationDate by remember {
+        mutableStateOf(mutableMapOf<String, String>())
+    }
+
     Column(
         modifier = Modifier.padding(
             horizontal = 10.dp
@@ -148,7 +152,9 @@ fun FertilizationFields(){
             )
         ) {
             Text(
-                text = "تاریخ تغذیه",
+                text =
+                if (fertilizationDate["year"] == null) "تاریخ تغذیه" else
+                "${fertilizationDate["year"]}/${fertilizationDate["month"]}/${fertilizationDate["day"]}",
                 style = MaterialTheme.typography.body1,
                 color = borderGray,
                 modifier = Modifier
@@ -157,7 +163,12 @@ fun FertilizationFields(){
         }
 
         if (openDateDialogue){
-            DatePicker(openDateDialogue){openDateDialogue = it}
+            DatePicker(openDateDialogue,
+                {openDateDialogue = it},
+                {date ->
+                    fertilizationDate = date
+                }
+            )
         }
 
         OutlinedTextField(
