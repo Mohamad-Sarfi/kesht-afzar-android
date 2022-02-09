@@ -27,7 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
@@ -36,6 +35,7 @@ import com.example.smartfarming.ui.adduser.ui.theme.fertilizer
 import com.example.smartfarming.ui.adduser.ui.theme.pesticide
 import com.example.smartfarming.ui.adduser.ui.theme.watering
 import androidx.compose.runtime.getValue
+import androidx.navigation.NavHostController
 
 
 class AddActivities : ComponentActivity() {
@@ -61,7 +61,7 @@ fun HostComposable(viewModel : AddActivitiesViewModel){
 }
 
 @Composable
-fun AddActivitiesMain(navController : NavController, viewModel : AddActivitiesViewModel){
+fun AddActivitiesMain(navController : NavHostController, viewModel : AddActivitiesViewModel){
 
     val gardensList : List<String> by viewModel.gardenList.observeAsState(listOf())
 
@@ -79,7 +79,7 @@ fun AddActivitiesMain(navController : NavController, viewModel : AddActivitiesVi
 
 @Composable
 fun Cards(
-    navController: NavController,
+    navController: NavHostController,
     garensList : List<String>
 ){
 
@@ -109,10 +109,10 @@ fun Cards(
                 .align(Alignment.CenterHorizontally)
         ) {
             Card("آبیاری", R.drawable.watering, watering) {
-                navigateToScreens(navController, currentGarden, ActivitiesScreen.Irrigation.name)
+                navigateToScreens(navController, currentGarden, ActivitiesScreen.IrrigationBody.name)
             }
             Card("تغذیه", R.drawable.npk, fertilizer) {
-                navigateToScreens(navController, currentGarden, ActivitiesScreen.Fertilization.name)
+                navigateToScreens(navController, currentGarden, ActivitiesScreen.FertilizationBody.name)
             }
         }
         Row(
@@ -120,8 +120,12 @@ fun Cards(
                 .padding(2.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Card("محلول پاشی", R.drawable.pesticide1, pesticide, {})
-            Card("سایر", R.drawable.shovel, MaterialTheme.colors.primary, {})
+            Card("محلول پاشی", R.drawable.pesticide1, pesticide){
+                navigateToScreens(navController, currentGarden, ActivitiesScreen.PesticideBody.name)
+            }
+            Card("سایر", R.drawable.shovel, MaterialTheme.colors.primary) {
+                navigateToScreens(navController, currentGarden, ActivitiesScreen.PesticideBody.name)
+            }
         }
         Row(
             modifier = Modifier
@@ -271,11 +275,20 @@ fun GardenSpinner(
 
 // Navigation
 private fun navigateToScreens(
-    navController: NavController,
+    navController: NavHostController,
     gardenName: String,
-    route : String
+    activityName: String
 ){
-    navController.navigate("$route/$gardenName")
+    val route = ActivitiesScreen.ActivityScreen.name
+    val icon =
+        when(activityName){
+            ActivitiesScreen.FertilizationBody.name -> ActivitiesScreen.FertilizationBody.icon
+            ActivitiesScreen.IrrigationBody.name -> ActivitiesScreen.IrrigationBody.icon
+            ActivitiesScreen.PesticideBody.name -> ActivitiesScreen.PesticideBody.icon
+            ActivitiesScreen.OtherActivityBody.name -> ActivitiesScreen.OtherActivityBody.icon
+            else -> ActivitiesScreen.OtherActivityBody.icon
+        }
+    navController.navigate("$route/$gardenName/$activityName")
 }
 
 @Preview(showBackground = true)

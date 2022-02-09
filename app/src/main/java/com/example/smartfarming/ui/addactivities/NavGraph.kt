@@ -1,8 +1,6 @@
 package com.example.smartfarming.ui.addactivities
 
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.textInputServiceFactory
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.*
 import androidx.navigation.compose.NavHost
@@ -16,7 +14,7 @@ fun SetupNavGraph(
     // Routes
     val homeActivity = ActivitiesScreen.HomeActivity.name
     val irrigation = ActivitiesScreen.Irrigation.name
-    val fertilization = ActivitiesScreen.Fertilization.name
+    val activityScreen = ActivitiesScreen.ActivityScreen.name
 
 
     NavHost(
@@ -41,15 +39,19 @@ fun SetupNavGraph(
             }
 
         composable(
-            route = "$fertilization/{name}",
+            route = "$activityScreen/{gardenName}/{act}",
             arguments = listOf(
-                navArgument("name"){
+                navArgument("gardenName"){
+                    type = NavType.StringType
+                },
+                navArgument("act"){
                     type = NavType.StringType
                 }
             )
-        ){
-            val gardenName = it.arguments?.getString("name")
-            FertilizationBody(gardenName!!)
+        ){entry ->
+            val gardenName = entry.arguments?.getString("gardenName")
+            val act = entry.arguments?.getString("act")
+            HostActivity(gardenName!!, act!!)
         }
     }
 }

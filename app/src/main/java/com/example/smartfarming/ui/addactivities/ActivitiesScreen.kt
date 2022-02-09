@@ -5,24 +5,42 @@ import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import com.example.smartfarming.R
 
 enum class ActivitiesScreen(
-    val icon : ImageVector,
+    val icon : Int,
 ) {
 
     HomeActivity(
-        icon = Icons.Filled.Home
+        icon = R.drawable.home
     ),
 
     Irrigation(
-        icon = Icons.Filled.Check
+        icon = 0
     ),
 
-    Fertilization(
-        icon = Icons.Filled.Build
+    ActivityScreen(
+        icon = 0
+    ),
+
+    IrrigationBody(
+        icon = R.drawable.irrigation_colored
+    ),
+
+    FertilizationBody(
+        icon = R.drawable.fertilizer_color
+    ),
+    PesticideBody(
+        icon = R.drawable.pesticide_colored
+    ),
+    OtherActivityBody(
+        icon = R.drawable.shovel_colored
     )
+
+
 
     ;
 

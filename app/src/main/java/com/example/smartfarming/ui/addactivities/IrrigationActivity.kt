@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
 import com.example.smartfarming.ui.addactivities.ui.theme.waterBlueDark
-import com.example.smartfarming.ui.addactivities.ui.theme.waterBlueLight
+import com.example.smartfarming.ui.addactivities.ui.theme.blueIrrigation
 import kotlin.math.roundToInt
 
 @Composable
@@ -52,7 +52,7 @@ fun TitleCard(gardenName : String){
             .background(
                 brush = Brush.horizontalGradient(
                     colors = listOf(
-                        waterBlueLight,
+                        blueIrrigation,
                         waterBlueDark
                     )
                 )
@@ -98,14 +98,14 @@ fun IrrigationDetails(){
             OutlinedButton(
                 onClick = { /*TODO*/ },
                 shape = MaterialTheme.shapes.large,
-                border = BorderStroke(3.dp, color = waterBlueLight),
+                border = BorderStroke(3.dp, color = blueIrrigation),
                 modifier = Modifier.size(width = 180.dp, height = 50.dp)
 
             ) {
                 Text(
                     text = "تاریخ آبیاری",
                     style = MaterialTheme.typography.body2 ,
-                    color = waterBlueLight,
+                    color = blueIrrigation,
                     modifier = Modifier.padding(vertical = 3.dp, horizontal = 30.dp)
                 )
             }
@@ -113,7 +113,7 @@ fun IrrigationDetails(){
             Icon(
                 Icons.Outlined.DateRange,
                 contentDescription = "date icon",
-                tint = waterBlueLight,
+                tint = blueIrrigation,
                 modifier = Modifier
                     .padding(start = 20.dp)
                     .size(50.dp)
@@ -130,14 +130,14 @@ fun IrrigationDetails(){
             OutlinedButton(
                 onClick = { /*TODO*/ },
                 shape = MaterialTheme.shapes.large,
-                border = BorderStroke(3.dp, color = waterBlueLight),
+                border = BorderStroke(3.dp, color = blueIrrigation),
                 modifier = Modifier.size(width = 180.dp, height = 50.dp)
 
             ) {
                 Text(
                     text = "ساعات آبیاری",
                     style = MaterialTheme.typography.body2 ,
-                    color = waterBlueLight,
+                    color = blueIrrigation,
 
                 )
             }
@@ -145,7 +145,7 @@ fun IrrigationDetails(){
             Icon(
                 Icons.Outlined.PlayArrow,
                 contentDescription = "date icon",
-                tint = waterBlueLight,
+                tint = blueIrrigation,
                 modifier = Modifier
                     .padding(start = 20.dp)
                     .size(50.dp)
@@ -165,7 +165,7 @@ fun IrrigationDetails(){
                 .size(width = 220.dp, 55.dp)
                 .padding(vertical = 3.dp, horizontal = 10.dp),
             colors = ButtonDefaults.buttonColors(
-                backgroundColor = waterBlueLight,
+                backgroundColor = blueIrrigation,
                 contentColor = Color.White
             ),
             shape = MaterialTheme.shapes.large
@@ -194,7 +194,7 @@ fun WaterAmountSlider(){
         Text(
             text = "حجم آبیاری",
             style = MaterialTheme.typography.body2,
-            color = waterBlueLight,
+            color = blueIrrigation,
             modifier = Modifier.align(CenterHorizontally)
         )
 
@@ -207,14 +207,14 @@ fun WaterAmountSlider(){
             steps = 20,
             colors = SliderDefaults.colors(
                 thumbColor = waterBlueDark,
-                activeTrackColor = waterBlueLight
+                activeTrackColor = blueIrrigation
             ),
             modifier = Modifier.padding(horizontal = 30.dp),
         )
         Text(
             text = sliderPosition.toString() + "  لیتر",
             style = MaterialTheme.typography.body2,
-            color = waterBlueLight,
+            color = blueIrrigation,
             modifier = Modifier.align(CenterHorizontally)
         )
 
@@ -232,7 +232,7 @@ fun Additionals(){
             OutlinedButton(
                 onClick = { /*TODO*/ },
                 shape = MaterialTheme.shapes.large,
-                border = BorderStroke(3.dp, color = waterBlueLight),
+                border = BorderStroke(3.dp, color = blueIrrigation),
                 modifier = Modifier
                     .size(width = 200.dp, height = 50.dp)
                     .align(CenterHorizontally)
@@ -241,7 +241,7 @@ fun Additionals(){
                 Text(
                     text = "کودهای محلول در آب",
                     style = MaterialTheme.typography.body2,
-                    color = waterBlueLight,
+                    color = blueIrrigation,
                     )
             }
         }
