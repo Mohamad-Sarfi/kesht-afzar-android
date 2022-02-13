@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.animation.core.MutableTransitionState
-import androidx.compose.animation.core.animateFloat
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.core.updateTransition
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -87,6 +84,10 @@ fun Cards(
         mutableStateOf(garensList[0])
     }
 
+    var clicked = remember {
+        mutableStateOf(false)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -108,10 +109,12 @@ fun Cards(
                 .padding(10.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Card("آبیاری", R.drawable.watering, watering) {
+            Card("آبیاری", R.drawable.watering, watering, clicked) {
+                clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.IrrigationBody.name)
             }
-            Card("تغذیه", R.drawable.npk, fertilizer) {
+            Card("تغذیه", R.drawable.npk, fertilizer, clicked) {
+                clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.FertilizationBody.name)
             }
         }
@@ -120,10 +123,12 @@ fun Cards(
                 .padding(2.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Card("محلول پاشی", R.drawable.pesticide1, pesticide){
+            Card("محلول پاشی", R.drawable.pesticide1, pesticide,clicked ){
+                clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.PesticideBody.name)
             }
-            Card("سایر", R.drawable.shovel, MaterialTheme.colors.primary) {
+            Card("سایر", R.drawable.shovel, MaterialTheme.colors.primary, clicked) {
+                clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.PesticideBody.name)
             }
         }
@@ -155,12 +160,17 @@ fun Card(
     text : String,
     iconId : Int,
     color: Color,
+    clicked: MutableState<Boolean>,
     action : () -> Unit
 ){
+    val cardSize by animateDpAsState(
+        if (clicked.value) 0.dp else 160.dp
+    )
+
     Column(
         modifier = Modifier
             .padding(10.dp)
-            .size(160.dp)
+            .size(cardSize)
             .clip(shape = MaterialTheme.shapes.large)
             .shadow(3.dp)
             .background(color)

@@ -1,5 +1,12 @@
 package com.example.smartfarming.ui.addactivities
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.core.LinearOutSlowInEasing
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -60,7 +67,8 @@ fun HostActivity(
             }
 
             Column(modifier = Modifier
-                .fillMaxHeight(1f),
+                .fillMaxHeight(1f)
+                ,
                 verticalArrangement = Arrangement.Center
             ) {
                 DecideActivityPart(currentActivity, gardenName)
@@ -91,28 +99,29 @@ fun ActivityTitleCard(
         else -> lightBrownOtherActivities
     }
 
-    Box(
-        modifier = Modifier
-            .clip(
-                RoundedCornerShape(
-                    topStart = 40.dp,
-                    bottomStart = 40.dp,
-                    topEnd = 0.dp,
-                    bottomEnd = 0.dp
-                )
-            )
-            .background(backgroundColor)
-            .padding(start = 10.dp, top = 30.dp, end = 30.dp, bottom = (10).dp)
-    ){
-        Image(
-            painter = painterResource(id = icon),
-            contentDescription = "pesticide",
+
+        Box(
             modifier = Modifier
-                .size(150.dp)
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 40.dp,
+                        bottomStart = 40.dp,
+                        topEnd = 0.dp,
+                        bottomEnd = 0.dp
+                    )
+                )
+                .background(backgroundColor)
+                .padding(start = 10.dp, top = 30.dp, end = 30.dp, bottom = (10).dp)
+        ){
+            Image(
+                painter = painterResource(id = icon),
+                contentDescription = "pesticide",
+                modifier = Modifier
+                    .size(150.dp)
 
-        )
+            )
 
-    }
+        }
 }
 
 @Composable
@@ -122,6 +131,7 @@ fun SideBar(
 ){
     Column(
         modifier = Modifier
+            .width(95.dp)
             .clip(
                 RoundedCornerShape(
                     topStart = 0.dp,
@@ -133,27 +143,46 @@ fun SideBar(
             .background(Color(0xFFECECEC))
             .padding(vertical = 30.dp, horizontal = 10.dp)
     ) {
+
+        val irrigationIconTint by animateColorAsState(
+            if (currentActivity == ActivitiesScreen.IrrigationBody.name) MainGreen else Color.Black
+        )
+        val irrigationIconSize by animateDpAsState(
+            if (currentActivity == ActivitiesScreen.IrrigationBody.name) 50.dp else 40.dp
+        )
+        val otherActivitiesIconSize by animateDpAsState(
+            if (currentActivity == ActivitiesScreen.OtherActivityBody.name) 50.dp else 40.dp
+        )
+        val fertilizationIconSize by animateDpAsState(
+            if (currentActivity == ActivitiesScreen.FertilizationBody.name) 50.dp else 40.dp
+        )
+        val pesticideIconSize by animateDpAsState(
+            if (currentActivity == ActivitiesScreen.PesticideBody.name) 50.dp else 40.dp
+        )
+
         Icon(
             painter = painterResource(id = R.drawable.irrigation_line1),
             contentDescription = "",
             modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 35.dp)
-                .size(40.dp)
                 .clickable {
                     currentActivityChange(ActivitiesScreen.IrrigationBody.name)
                 }
+                .padding(horizontal = 15.dp, vertical = 35.dp)
+                .size(irrigationIconSize)
+
             ,
-            tint = if (currentActivity == ActivitiesScreen.IrrigationBody.name) MainGreen else Color.Black
+            tint = irrigationIconTint
         )
         Icon(
             painter = painterResource(id = R.drawable.shove_line),
             contentDescription = "",
             modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 35.dp)
-                .size(40.dp)
                 .clickable {
                     currentActivityChange(ActivitiesScreen.OtherActivityBody.name)
                 }
+                .padding(horizontal = 15.dp, vertical = 35.dp)
+                .size(otherActivitiesIconSize)
+
             ,
             tint = if (currentActivity == ActivitiesScreen.OtherActivityBody.name) MainGreen else Color.Black
         )
@@ -161,11 +190,12 @@ fun SideBar(
             painter = painterResource(id = R.drawable.fertilizer_line),
             contentDescription = "",
             modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 35.dp)
-                .size(40.dp)
                 .clickable {
                     currentActivityChange(ActivitiesScreen.FertilizationBody.name)
                 }
+                .padding(horizontal = 15.dp, vertical = 35.dp)
+                .size(fertilizationIconSize)
+
             ,
             tint = if (currentActivity == ActivitiesScreen.FertilizationBody.name) MainGreen else Color.Black
         )
@@ -173,11 +203,12 @@ fun SideBar(
             painter = painterResource(id = R.drawable.pesticide_line),
             contentDescription = "",
             modifier = Modifier
-                .padding(horizontal = 15.dp, vertical = 35.dp)
-                .size(40.dp)
                 .clickable {
-                           currentActivityChange(ActivitiesScreen.PesticideBody.name)
+                    currentActivityChange(ActivitiesScreen.PesticideBody.name)
                 }
+                .padding(horizontal = 15.dp, vertical = 35.dp)
+                .size(pesticideIconSize)
+
             ,
             tint = if (currentActivity == ActivitiesScreen.PesticideBody.name) MainGreen else Color.Black
         )
@@ -201,7 +232,7 @@ fun GardenTitle(gardenName : String){
             color = MainGreen
         )
         Text(
-            text = " نام باغ: ",
+            text = " ثبت تغذیه باغ ",
             style = MaterialTheme.typography.h5,
             modifier = Modifier
                 .align(CenterVertically),
@@ -217,7 +248,7 @@ fun DecideActivityPart(
 ){
     when(currentActivity){
         ActivitiesScreen.FertilizationBody.name -> FertilizationPart(gardenName)
-        ActivitiesScreen.IrrigationBody.name -> IrrigationPart()
+        ActivitiesScreen.IrrigationBody.name -> IrrigationPart(gardenName)
         ActivitiesScreen.PesticideBody.name -> PesticidePart()
         ActivitiesScreen.OtherActivityBody.name -> OtherActivityPart()
     }

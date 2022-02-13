@@ -62,9 +62,9 @@ fun DatePicker(
     ) {
         Surface(
             modifier = Modifier
-                .width(300.dp)
-                .height(390.dp)
-                .padding(10.dp)
+                .width(370.dp)
+                .height(400.dp)
+                .padding(vertical = 30.dp, horizontal = 15.dp)
             ,
             shape = RoundedCornerShape(15.dp),
             color = Color.White
@@ -73,7 +73,6 @@ fun DatePicker(
 
             Column(
                 modifier = Modifier
-                    .fillMaxHeight(1f)
                     .padding(10.dp)
                     .fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -90,7 +89,7 @@ fun DatePicker(
                               },
                     shape = RoundedCornerShape(15.dp),
                     modifier = Modifier
-                        .padding(top = 30.dp)
+                        .padding(top = 20.dp)
                         .fillMaxWidth()
                 ) {
                     Text(
@@ -197,7 +196,7 @@ fun getDate(): Map<String, String>{
     }
 
     if (date[Calendar.DAY_OF_MONTH] < 21){
-        month = when(date[Calendar.MONTH]){
+        when(date[Calendar.MONTH]){
             0 -> 10
             1 -> 11
             2 -> 12
@@ -211,7 +210,7 @@ fun getDate(): Map<String, String>{
             10 -> 8
             11 -> 9
             else -> 1
-        }
+        }.also { month = it }
     }
     else {
         month = when(date[Calendar.MONTH]){

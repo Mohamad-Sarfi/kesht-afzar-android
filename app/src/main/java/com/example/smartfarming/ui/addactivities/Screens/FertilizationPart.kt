@@ -4,18 +4,30 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material.icons.materialIcon
+import androidx.compose.material.icons.outlined.Dashboard
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.GardenTitle
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
 import com.example.smartfarming.ui.addactivities.ui.theme.borderGray
 import com.example.smartfarming.ui.addactivities.ui.theme.greenPesticide
 import com.example.smartfarming.ui.addactivities.ui.theme.lightGreenPesticide
+
+val FIELD_HEIGHT = 55.dp
+val FIELD_WIDTH = 215.dp
 
 @Composable
 fun FertilizationPart(
@@ -53,10 +65,6 @@ fun FertilizationPart(
             shape = RoundedCornerShape(
                 topStart = 25.dp,
                 bottomStart = 25.dp
-            ),
-            colors = ButtonDefaults.buttonColors(
-                backgroundColor = greenPesticide,
-                contentColor = Color.White
             ),
             modifier = Modifier
                 .constrainAs(submitBtn) {
@@ -120,7 +128,7 @@ fun FertilizationFields(){
             },
             modifier = Modifier
                 .padding(18.dp)
-                .width(200.dp)
+                .width(FIELD_WIDTH)
             ,
             shape = RoundedCornerShape(
                 topStart = 20.dp,
@@ -131,7 +139,15 @@ fun FertilizationFields(){
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = MainGreen,
                 unfocusedBorderColor = greenPesticide
-            )
+            ),
+            trailingIcon = {
+                Icon(
+                    Icons.Outlined.Dashboard,
+                    contentDescription ="",
+                    modifier = Modifier.size(30.dp),
+                    tint = MainGreen
+                )
+            }
 
         )
 
@@ -139,7 +155,8 @@ fun FertilizationFields(){
             onClick = { openDateDialogue = !openDateDialogue },
             modifier = Modifier
                 .padding(18.dp)
-                .width(200.dp),
+                .width(FIELD_WIDTH)
+                .height(FIELD_HEIGHT),
             colors = ButtonDefaults.outlinedButtonColors(
                 backgroundColor = Color.White,
             ),
@@ -156,9 +173,8 @@ fun FertilizationFields(){
                 if (fertilizationDate["year"] == null) "تاریخ تغذیه" else
                 "${fertilizationDate["year"]}/${fertilizationDate["month"]}/${fertilizationDate["day"]}",
                 style = MaterialTheme.typography.body1,
-                color = borderGray,
+                color = if (fertilizationDate["year"] == null) borderGray else MainGreen,
                 modifier = Modifier
-                    .padding(vertical = 6.dp)
             )
         }
 
@@ -183,7 +199,7 @@ fun FertilizationFields(){
             },
             modifier = Modifier
                 .padding(18.dp)
-                .width(200.dp)
+                .width(FIELD_WIDTH)
             ,
             shape = RoundedCornerShape(
                 topStart = 20.dp,
@@ -194,7 +210,10 @@ fun FertilizationFields(){
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = MainGreen,
                 unfocusedBorderColor = greenPesticide
-            )
+            ),
+            trailingIcon = {
+                Icon(Icons.Outlined.Edit, contentDescription ="",tint = MainGreen )
+            }
 
         )
 
