@@ -2,11 +2,12 @@ package com.example.smartfarming.data.entities
 
 import androidx.room.PrimaryKey
 
-data class IrrigationEntity(
+data class Irrigation(
     @PrimaryKey val id : Int,
 
     val gardenName: String,
     val date : String,
     val volume: Int,
-    val duration : Int
+    val duration : Int,
+    val additions : List<String>
 )

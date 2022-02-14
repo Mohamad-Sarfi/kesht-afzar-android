@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.smartfarming.ui.addgarden.AddGardenActivity
 import com.example.smartfarming.databinding.FragmentHomeBinding
+import com.example.smartfarming.ui.addgarden.AddGarden
 
 class HomeFragment : Fragment() {
 
@@ -46,7 +47,7 @@ class HomeFragment : Fragment() {
         }
         else {
             binding.addFirstGardenLayout.setOnClickListener{
-                val intent = Intent(this@HomeFragment.context, AddGardenActivity::class.java)
+                val intent = Intent(this@HomeFragment.context, AddGarden::class.java)
                 startActivity(intent)
             }
         }

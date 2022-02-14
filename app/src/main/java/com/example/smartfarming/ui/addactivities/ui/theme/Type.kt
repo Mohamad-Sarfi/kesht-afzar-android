@@ -11,18 +11,25 @@ import com.example.smartfarming.ui.adduser.ui.theme.sina
 
 // Set of Material typography styles to start with
 val Typography = Typography(
-    body1 = TextStyle(
+    subtitle1 = TextStyle(
         fontFamily = sina,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontSize = 15.sp,
         textDirection = TextDirection.ContentOrRtl
     ),
-    body2 = TextStyle(
+    body1 = TextStyle(
         fontFamily = sina,
         fontWeight = FontWeight.Normal,
         fontSize = 18.sp,
         textDirection = TextDirection.ContentOrRtl
     ),
+    body2 = TextStyle(
+        fontFamily = sina,
+        fontWeight = FontWeight.Normal,
+        fontSize = 20.sp,
+        textDirection = TextDirection.ContentOrRtl
+    ),
+
     h3 = TextStyle(
         fontFamily = sina,
         fontSize = 28.sp,
