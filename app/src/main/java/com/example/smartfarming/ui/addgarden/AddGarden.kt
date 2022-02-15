@@ -1,6 +1,8 @@
 package com.example.smartfarming.ui.addgarden
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.core.animateDpAsState
@@ -13,11 +15,13 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,28 +49,25 @@ class AddGarden : ComponentActivity() {
 }
 
 @Composable
-fun AddGardenCompose(){
+fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
+
     val MAX_STEPS = 4
+    val context = LocalContext.current
     var step by remember() {
         mutableStateOf(1)
     }
-    var gardenName by remember {
-        mutableStateOf("")
-    }
+    val gardenName by viewModel.gardenName.observeAsState("")
 
     var gardenAge by remember {
         mutableStateOf("")
     }
 
-    var varietiesList by remember {
-        mutableStateOf(listOf<String>())
-    }
+    val varietiesList = viewModel.typeArray.observeAsState(arrayListOf())
 
     Scaffold(
         modifier = Modifier
             .padding(0.dp)
-            .fillMaxSize(1f)
-            ,
+            .fillMaxSize(1f),
         backgroundColor = MainGreen
     ) {
         ConstraintLayout(modifier = Modifier
@@ -122,6 +123,8 @@ fun AddGardenCompose(){
                         .padding(
                         28.dp
                     ),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     stepCircle(step = step, 1)
                     stepCircle(step = step, 2)
@@ -129,7 +132,23 @@ fun AddGardenCompose(){
                     stepCircle(step = step, 4)
                 }
                 Column {
-                        AddGardenStep1(gardenName, {gardenName = it}, gardenAge, {gardenAge = it})
+
+                    when(step){
+                        1 -> AddGardenStep1(
+                            gardenName!!, {viewModel.setGardenName(it)},
+                            gardenAge, {gardenAge = it},
+                            varietiesList, {
+                                viewModel.addType(it)
+                                Log.i("VRTY1", "$varietiesList")
+                            },{
+                                viewModel.removeFromTypeArray(it)
+                            }
+                        )
+                        2 -> AddGardenStep2()
+                        3 -> AddGardenStep3()
+                        else -> AddGardenStep3()
+
+                    }
                 }
             }
 
@@ -197,10 +216,14 @@ fun stepCircle(
     numberTag: Int
 ){
     val circle1Animation by animateDpAsState(
-        targetValue = if (step == numberTag) 34.dp else 10.dp
+        targetValue = if (step == numberTag) 38.dp else 10.dp
     )
     Column(modifier = Modifier
-        .wrapContentSize(Alignment.Center)) {
+        .wrapContentSize(Alignment.Center)
+        .padding(vertical = 18.dp, horizontal = 8.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
         Box(
             modifier = Modifier
                 .padding(6.dp)

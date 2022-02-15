@@ -1,5 +1,6 @@
 package com.example.smartfarming.ui.addgarden
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -34,7 +35,9 @@ fun AddGardenStep1(
     setName : (String) -> Unit,
     gardenAge : String,
     setAge : (String) -> Unit,
-    varietiesList: List<String>
+    varietiesList: State<List<String>>,
+    addVariety: (String) -> Unit,
+    removeVariety: (String) -> Unit
 ){
     Column(
         modifier = Modifier,
@@ -102,20 +105,17 @@ fun AddGardenStep1(
                 .size(width = 260.dp, height = 75.dp)
         )
 
-        PlanVarietySpinner(listOf("asaf", "asfasf")){}
-
-        Row(modifier = Modifier.padding(10.dp)) {
-            varietiesList.forEach{
-                Text(
-                    text = it,
-                    style = MaterialTheme.typography.subtitle1
-                )
-            }
+        PlanVarietySpinner(listOf()){
+            addVariety(it)
         }
+
+        plantVarietiesTexts(varietiesList){removeVariety(it)}
+
 
 
     }
 }
+
 
 
 @Composable
@@ -129,7 +129,7 @@ fun PlanVarietySpinner(
 
     Row(
         modifier = Modifier
-            .padding(10.dp)
+            .padding(15.dp)
             .size(width = 260.dp, height = 62.dp)
             .clip(MaterialTheme.shapes.large)
             .background(lightGray)
@@ -162,6 +162,7 @@ fun PlanVarietySpinner(
                     onClick = {
                         expanded = false
                         addVariety(it)
+                        Log.i("VRTY", "$varietiesList")
                     })
                 {
                     Text(
@@ -177,8 +178,30 @@ fun PlanVarietySpinner(
     }
 }
 
+@Composable
+fun plantVarietiesTexts(
+    listt: State<List<String>>,
+    removeVariety: (String) -> Unit
+){
+    Row(modifier = Modifier.padding(10.dp)) {
+        listt.value.forEach{
+            Text(
+                text = it,
+                style = MaterialTheme.typography.subtitle1,
+                modifier = Modifier
+                    .padding(5.dp)
+                    .clickable {
+                        removeVariety(it)
+                    }
+
+            )
+        }
+    }
+}
+
+
 @Preview(showBackground = true)
 @Composable
 fun display(){
-    AddGardenStep1("", {}, "",{}, listOf())
+    //AddGardenStep1("", {}, "",{}, listOf(), {})
 }

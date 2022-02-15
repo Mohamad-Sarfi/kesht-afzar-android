@@ -1,14 +1,17 @@
 package com.example.smartfarming.ui.addgarden
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class AddGardenViewModel : ViewModel() {
-    val typeArray = MutableLiveData<MutableList<String>>().apply {
-        value = arrayListOf()
+    val typeArray = MutableLiveData<List<String>>().apply {
+        value = listOf()
     }
-    private var gardenName = MutableLiveData<String>().apply {
+    var gardenName = MutableLiveData<String>().apply {
         value = ""
     }
 
@@ -23,31 +26,26 @@ class AddGardenViewModel : ViewModel() {
 
 
     fun addType(newType : String){
-        val array : MutableList<String>? = typeArray.value
-        array!!.add(newType)
+        var array : List<String>? = typeArray.value
+        if (newType !in array!! && array.size < 5){
+                array = array + listOf(newType)
+        }
         typeArray.value = array
     }
 
     fun removeFromTypeArray(item : String){
-        val tempArray = typeArray.value
-        for (i in 0 .. tempArray!!.size){
-            if (tempArray[i] == item) {
-                tempArray.removeAt(i)
-                break
-            }
+        val index = typeArray.value!!.indexOf(item)
+        val tempArray = typeArray.value!!.toMutableList().also {
+            it.removeAt(index)
         }
         typeArray.value = tempArray
     }
 
-    fun getTypeArray() : LiveData<MutableList<String>> {
-        return typeArray
-    }
 
-    fun setGardenName(name : String){
+    fun setGardenName(name : String) {
         gardenName.value = name
     }
 
-    fun getGardenName() : String? = gardenName.value
 
 
     fun setGardenAge(age : String){
