@@ -71,6 +71,7 @@ fun AddGardenCompose(
     val gardenName by viewModel.gardenName.observeAsState("")
     val isLocationSet by viewModel.isLocationSet.observeAsState()
     val latLong by viewModel.location.observeAsState()
+    val gardenArea by viewModel.getArea().observeAsState()
 
     val gardenAge by viewModel.getGardenAge().observeAsState()
 
@@ -151,7 +152,14 @@ fun AddGardenCompose(
                             irrigationVolume!!,
                             {viewModel.setIrrigationVolume(it)}
                         )
-                        3 -> AddGardenStep3(navController, isLocationSet!!, gardenName, latLong!!)
+                        3 -> AddGardenStep3(
+                            navController,
+                            isLocationSet!!,
+                            gardenName,
+                            latLong!!,
+                            gardenArea!!,
+                            {viewModel.setArea(it)}
+                            )
                         else -> AddGardenStep4()
 
                     }

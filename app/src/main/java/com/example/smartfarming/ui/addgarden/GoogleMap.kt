@@ -8,6 +8,7 @@ import android.content.pm.PackageManager
 import android.location.GnssAntennaInfo
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -39,6 +40,7 @@ import androidx.navigation.NavHostController
 import com.example.smartfarming.ui.addactivities.ActivitiesScreen
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
 import com.example.smartfarming.ui.addactivities.ui.theme.borderGray
+import com.google.android.gms.maps.model.Marker
 import com.google.android.libraries.maps.CameraUpdateFactory
 import com.google.android.libraries.maps.GoogleMap
 import com.google.android.libraries.maps.MapView
@@ -129,7 +131,7 @@ fun MapCompose(
                 style = MaterialTheme.typography.body2,
                 color = Color.White,
                 modifier = Modifier
-                    .padding(vertical = 5.dp, horizontal = 30.dp)
+                    .padding(vertical = 5.dp, horizontal = 40.dp)
             )
         }
     }
@@ -165,13 +167,14 @@ fun GoogleMap(
            factory = {
                mapView.apply {
                    mapView.getMapAsync{googleMap ->
-                       googleMap.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                       googleMap.mapType = GoogleMap.MAP_TYPE_HYBRID
                        googleMap.uiSettings.isZoomControlsEnabled = true
                        googleMap.uiSettings.setAllGesturesEnabled(isEnabled)
-                       val pickUp = LatLng(35.0, 54.0)
-                       googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(pickUp, 6f))
+                       val startPoint = LatLng(35.0, 54.0)
+                       googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(startPoint, 5f))
 
                        val points = arrayListOf<LatLng>()
+                       var markers = arrayListOf<com.google.android.libraries.maps.model.Marker>()
                        var polygon : Polygon? = null
                        val polygonOptions = PolygonOptions()
 
@@ -181,23 +184,40 @@ fun GoogleMap(
 
                        googleMap.setOnMapClickListener { latLng ->
                            points.add(latLng)
-                           googleMap.addMarker(
+                           val mark = googleMap.addMarker(
                                MarkerOptions()
                                    .position(latLng)
                                    .title("باغ شما")
                            )
+                           markers.add(mark)
+
                            polygonOptions
                                .add(
                                    points[points.size - 1]
                                )
-                               .fillColor(0xFFFFFF)
+                               .fillColor(0x0E9145)
 
                            if (polygon != null) polygon!!.remove()
                            polygon = googleMap.addPolygon(polygonOptions)
-
+                           viewModel.setLocationList(points)
                        }
 
 
+                       // Clear selections
+                       googleMap.setOnMapLongClickListener {
+                           points.removeAll(points)
+                           markers.removeAll(markers)
+                           polygonOptions.addAll(
+                               points
+                           )
+                           polygon!!.remove()
+                           polygon = googleMap.addPolygon(polygonOptions)
+                           googleMap.clear()
+                       }
+
+                       googleMap.setOnMarkerClickListener {
+                           markers.remove(it)
+                       }
 
                        /*googleMap.setOnCameraIdleListener {
                            googleMap.clear()
@@ -256,4 +276,20 @@ fun enableMyLocation(activity : Activity, googleMap: GoogleMap, context: Context
             REQUEST_LOCATION_PERMISSION
         )
     }
+}
+
+fun calculateArea(points : List<LatLng>) : Double{
+    var area = 0.0
+    var sum = 0.0
+
+    for (i in 0..points.size-1){
+        Log.i("Area", "$i")
+        Log.i("Area2", "${points.size}")
+        if (i == 0)
+            sum += points[i].latitude * (points[i+1].longitude - points.last().longitude)
+        else
+            sum += points[i].latitude * (points[i+1].longitude - points[i -1].longitude)
+    }
+    area = 0.5 * Math.abs(sum) * 1000
+    return area
 }

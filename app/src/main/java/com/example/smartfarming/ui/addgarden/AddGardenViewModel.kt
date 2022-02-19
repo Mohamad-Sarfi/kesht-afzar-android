@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.android.libraries.maps.model.LatLng
 
 class AddGardenViewModel : ViewModel() {
     val MAX_STEPS = 4
@@ -45,6 +46,19 @@ class AddGardenViewModel : ViewModel() {
         value = false
     }
 
+    private var locationList = MutableLiveData<List<LatLng>>().apply {
+        value = listOf()
+    }
+
+    private val gardenArea = MutableLiveData<Int>().apply {
+        value = 0
+    }
+
+
+    fun getArea() : MutableLiveData<Int> = gardenArea
+    fun setArea(area : Int){
+        gardenArea.value = area
+    }
 
     fun incrementStep(){
         if (step.value!! < MAX_STEPS){
@@ -92,6 +106,12 @@ class AddGardenViewModel : ViewModel() {
         location.value = mutableMapOf("lat" to lat.substring(0,6), "long" to lon.substring(0,6))
     }
 
+    fun setLocationList(locations : List<LatLng>){
+        locationList.value = locations
+        location.value = mutableMapOf("lat" to locations[0].latitude.toString().substring(0,6), "long" to locations[0].longitude.toString().substring(0,6))
+    }
+
+    fun getLocationList() : List<LatLng> = locationList.value!!
 
     fun setIrrigationDuration(duration : String){
         irrigationDuration.value = duration
