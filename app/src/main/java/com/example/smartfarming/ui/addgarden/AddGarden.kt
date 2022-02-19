@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
@@ -26,6 +27,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
@@ -41,7 +45,7 @@ class AddGarden : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MainGreen
                 ) {
-                    AddGardenCompose()
+                    HostCompose()
                 }
             }
         }
@@ -49,20 +53,32 @@ class AddGarden : ComponentActivity() {
 }
 
 @Composable
-fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
+fun HostCompose(){
+    val navController = rememberNavController()
+    val viewModel : AddGardenViewModel = AddGardenViewModel()
+    GardenNavGraph(navController = navController, viewModel)
+}
 
-    val MAX_STEPS = 4
+@Composable
+fun AddGardenCompose(
+    viewModel: AddGardenViewModel,
+    navController: NavHostController
+){
+
+
     val context = LocalContext.current
-    var step by remember() {
-        mutableStateOf(1)
-    }
+    var step = viewModel.step.observeAsState()
     val gardenName by viewModel.gardenName.observeAsState("")
+    val isLocationSet by viewModel.isLocationSet.observeAsState()
+    val latLong by viewModel.location.observeAsState()
 
-    var gardenAge by remember {
-        mutableStateOf("")
-    }
+    val gardenAge by viewModel.getGardenAge().observeAsState()
 
     val varietiesList = viewModel.typeArray.observeAsState(arrayListOf())
+
+    val irrigationCycle by viewModel.irrigationCycle.observeAsState()
+    val irrigationDuration by viewModel.irrigationDuration.observeAsState()
+    val irrigationVolume by viewModel.irrigationVolume.observeAsState()
 
     Scaffold(
         modifier = Modifier
@@ -75,37 +91,19 @@ fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
             .fillMaxHeight(1f)
             .fillMaxSize(1f)) {
 
-            val (topBar, middle, button) = createRefs()
+            val (topCard, middle, button) = createRefs()
 
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center,
                 modifier = Modifier
-                    .constrainAs(topBar) {
+                    .constrainAs(topCard) {
                         top.linkTo(parent.top, margin = 5.dp)
                     }
                     .fillMaxWidth()
             ) {
                 Column {
-                    Image(
-                        painter = painterResource(id = R.drawable.sprout_white),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(20.dp)
-                            .size(
-                                130.dp
-                            )
-                            .align(CenterHorizontally)
-
-                    )
-
-                    Text(
-                        text = "ثبت باغ جدید",
-                        style = MaterialTheme.typography.h3,
-                        modifier = Modifier
-                            .align(CenterHorizontally)
-                            .padding(10.dp)
-                    )
+                    ManageTopCard(step = step.value!!)
                 }
             }
 
@@ -113,7 +111,7 @@ fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
                 .constrainAs(middle) {
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
-                    top.linkTo(topBar.bottom)
+                    top.linkTo(topCard.bottom)
                     bottom.linkTo(button.top)
                 }
                 .fillMaxWidth(1f)
@@ -126,27 +124,35 @@ fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
                     verticalArrangement = Arrangement.Center,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    stepCircle(step = step, 1)
-                    stepCircle(step = step, 2)
-                    stepCircle(step = step, 3)
-                    stepCircle(step = step, 4)
+                    stepCircle(step = step.value!!, 1)
+                    stepCircle(step = step.value!!, 2)
+                    stepCircle(step = step.value!!, 3)
+                    stepCircle(step = step.value!!, 4)
                 }
+
+                // Main column, consisting fields
                 Column {
 
-                    when(step){
+                    when(step.value){
                         1 -> AddGardenStep1(
                             gardenName!!, {viewModel.setGardenName(it)},
-                            gardenAge, {gardenAge = it},
+                            gardenAge!!, {viewModel.setGardenAge(it)},
                             varietiesList, {
                                 viewModel.addType(it)
-                                Log.i("VRTY1", "$varietiesList")
                             },{
                                 viewModel.removeFromTypeArray(it)
                             }
                         )
-                        2 -> AddGardenStep2()
-                        3 -> AddGardenStep3()
-                        else -> AddGardenStep3()
+                        2 -> AddGardenStep2(
+                            irrigationDuration!!,
+                            {viewModel.setIrrigationDuration(it)},
+                            irrigationCycle!!,
+                            {viewModel.setIrrigationCycle(it)},
+                            irrigationVolume!!,
+                            {viewModel.setIrrigationVolume(it)}
+                        )
+                        3 -> AddGardenStep3(navController, isLocationSet!!, gardenName, latLong!!)
+                        else -> AddGardenStep4()
 
                     }
                 }
@@ -162,7 +168,9 @@ fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
                 horizontalArrangement = Arrangement.Center
             ) {
                 OutlinedButton(
-                    onClick = { step = if (step > 1) step - 1 else 1 },
+                    onClick = {
+                        viewModel.decrementStep()
+                              },
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = MainGreen,
                         contentColor = Color.White
@@ -185,7 +193,7 @@ fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
 
                 Button(
                     onClick = {
-                        step = if (step < MAX_STEPS) step + 1 else step
+                        viewModel.incrementStep()
                     },
                     shape = MaterialTheme.shapes.large,
                     colors = ButtonDefaults.buttonColors(
@@ -196,7 +204,7 @@ fun AddGardenCompose(viewModel: AddGardenViewModel = AddGardenViewModel()){
                         .size(width = 180.dp, height = 60.dp)
                 ) {
                     Text(
-                        text = if (step < MAX_STEPS) "ادامه" else "ثبت",
+                        text = if (step.value!! < viewModel.MAX_STEPS) "ادامه" else "ثبت",
                         style = MaterialTheme.typography.h5,
                         color = MainGreen,
                         modifier = Modifier.padding(
@@ -218,6 +226,9 @@ fun stepCircle(
     val circle1Animation by animateDpAsState(
         targetValue = if (step == numberTag) 38.dp else 10.dp
     )
+    val circleColor by animateColorAsState(
+        if (step == numberTag) Color.White else lightGray
+    )
     Column(modifier = Modifier
         .wrapContentSize(Alignment.Center)
         .padding(vertical = 18.dp, horizontal = 8.dp),
@@ -229,18 +240,47 @@ fun stepCircle(
                 .padding(6.dp)
                 .size(width = 10.dp, height = circle1Animation)
                 .clip(RoundedCornerShape(30.dp))
-                .background(lightGray)
+                .background(circleColor)
                 .padding(14.dp)
         )
     }
 }
 
+@Composable
+fun ManageTopCard(step: Int){
+    Column() {
 
+        Image(
+            painter = painterResource(id = R.drawable.sprout_white),
+            contentDescription = "",
+            modifier = Modifier
+                .padding(20.dp)
+                .size(
+                    130.dp
+                )
+                .align(CenterHorizontally)
+
+        )
+
+        Text(
+            text = when(step){
+                1 -> "ثبت باغ جدید"
+                2-> "اطلاعات آبیاری باغ"
+                3-> "موقعیت مکانی باغ"
+                4 -> "نتایج آزمایش آب و خاک"
+                else -> "ثبت باغ جدید" },
+            style = MaterialTheme.typography.h4,
+            modifier = Modifier
+                .align(CenterHorizontally)
+                .padding(8.dp)
+        )
+    }
+}
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview4() {
     SmartFarmingTheme {
-        AddGardenCompose()
+        //AddGardenCompose()
     }
 }

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Smart farming</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
+    <string name="title_gardens">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -36,6 +36,16 @@
         <item>بیشتر از 10 هکتار</item>
     </string-array>
 
+    <string-array name="irrigation_cycle">
+        <item>7 روز</item>
+        <item>10 روز</item>
+        <item>20 روز</item>
+        <item>30 روز</item>
+        <item>40 روز</item>
+        <item>50 روز</item>
+        <item>60 روز</item>
+    </string-array>
+
     <string-array name="garden_area_num">
         <item>0.5</item>
         <item>1</item>
@@ -49,6 +59,7 @@
     <string name="title_activity_add_activities">AddActivities</string>
     <string name="title_activity_irrigation">IrrigationActivity</string>
     <string name="title_activity_add_garden">AddGarden</string>
+    <string name="title_activity_maps">MapsActivity</string>
 
 
 </resources>

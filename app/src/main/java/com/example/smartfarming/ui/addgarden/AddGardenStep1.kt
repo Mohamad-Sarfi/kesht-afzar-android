@@ -6,10 +6,13 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material.icons.filled.ArrowDropUp
+import androidx.compose.material.icons.filled.ArrowUpward
 import androidx.compose.material.icons.outlined.AccountTree
 import androidx.compose.material.icons.rounded.Cached
 import androidx.compose.material.icons.rounded.Cake
@@ -19,8 +22,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -39,9 +45,11 @@ fun AddGardenStep1(
     addVariety: (String) -> Unit,
     removeVariety: (String) -> Unit
 ){
+    val focusManager = LocalFocusManager.current
+
     Column(
         modifier = Modifier,
-        verticalArrangement = Arrangement.Top,
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         OutlinedTextField(
@@ -59,18 +67,26 @@ fun AddGardenStep1(
                 unfocusedLabelColor = Color.White,
                 unfocusedIndicatorColor = Color.White
             ),
+            singleLine = true,
+            maxLines = 1,
             label = {
                 Text(
                     "نام باغ",
                     style = MaterialTheme.typography.body1
                 )
             },
+            keyboardActions = KeyboardActions(
+                onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
+            ),
             trailingIcon = {
                 Icon(Icons.Rounded.Park, contentDescription = "")
             },
             modifier = Modifier
                 .padding(10.dp)
-                .size(width = 260.dp, height = 75.dp)
+                .size(width = 260.dp, height = 75.dp),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next)
         )
 
         OutlinedTextField(
@@ -95,7 +111,13 @@ fun AddGardenStep1(
                 )
             },
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
+            keyboardActions = KeyboardActions(
+                onDone ={
+                    focusManager.moveFocus(FocusDirection.Down)
+                }
             ),
             trailingIcon = {
                 Icon(Icons.Rounded.Pin, contentDescription = "")
@@ -141,7 +163,7 @@ fun PlanVarietySpinner(
         verticalAlignment = Alignment.CenterVertically)
     {
         Icon(
-            Icons.Filled.ArrowDropDown,
+            Icons.Filled.ArrowDropUp,
             contentDescription = "",
             tint = MainGreen
         )
@@ -162,7 +184,6 @@ fun PlanVarietySpinner(
                     onClick = {
                         expanded = false
                         addVariety(it)
-                        Log.i("VRTY", "$varietiesList")
                     })
                 {
                     Text(

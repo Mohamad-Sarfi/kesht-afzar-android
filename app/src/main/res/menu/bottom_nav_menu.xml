@@ -8,7 +8,7 @@
         android:title="@string/home" />
 
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_gardens"
         android:icon="@drawable/tree"
         android:title="@string/orchard" />
 

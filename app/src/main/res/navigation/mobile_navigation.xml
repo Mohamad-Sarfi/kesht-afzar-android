@@ -12,15 +12,15 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_navigation_home_to_navigation_dashboard"
-            app:destination="@id/navigation_dashboard"
+            app:destination="@id/navigation_gardens"
             app:popUpTo="@id/navigation_home" />
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.smartfarming.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        android:id="@+id/navigation_gardens"
+        android:name="com.example.smartfarming.ui.dashboard.GardensFragment"
+        android:label="@string/title_gardens"
+        tools:layout="@layout/fragment_gardens">
         <action
             android:id="@+id/action_navigation_dashboard_to_navigation_home"
             app:destination="@id/navigation_home" />

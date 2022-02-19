@@ -7,8 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
-import com.example.smartfarming.ui.addactivities.AddActivities
 import com.example.smartfarming.databinding.ActivityMainBinding
+import com.example.smartfarming.ui.addactivities.AddActivities
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_notifications, R.id.shopFragment
+                R.id.navigation_home, R.id.navigation_gardens, R.id.navigation_notifications, R.id.shopFragment
             )
         )
 

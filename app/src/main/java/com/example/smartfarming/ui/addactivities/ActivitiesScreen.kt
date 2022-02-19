@@ -1,6 +1,7 @@
 package com.example.smartfarming.ui.addactivities
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.AddLocation
 import androidx.compose.material.icons.filled.Build
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
@@ -38,6 +39,12 @@ enum class ActivitiesScreen(
     ),
     OtherActivityBody(
         icon = R.drawable.shovel_colored
+    ),
+    MapScreen(
+        icon = 0
+    ),
+    AddGardenScreen(
+        icon = 0
     )
 
 
