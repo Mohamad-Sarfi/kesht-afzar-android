@@ -2,8 +2,10 @@ package com.example.smartfarming.ui.addactivities
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -12,7 +14,6 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.runtime.*
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -23,7 +24,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
@@ -32,19 +32,22 @@ import com.example.smartfarming.ui.adduser.ui.theme.fertilizer
 import com.example.smartfarming.ui.adduser.ui.theme.pesticide
 import com.example.smartfarming.ui.adduser.ui.theme.watering
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
+import com.example.smartfarming.FarmApplication
+import com.example.smartfarming.ui.addactivities.viewModel.AddActivitiesViewModelFactory
 
 
 class AddActivities : ComponentActivity() {
 
-
-    lateinit var viewModel : AddActivitiesViewModel
+    private val viewModel : AddActivitiesViewModel by viewModels{
+        AddActivitiesViewModelFactory((application as FarmApplication).repo)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             SmartFarmingTheme {
-                viewModel = ViewModelProvider(this).get(AddActivitiesViewModel::class.java)
                 HostComposable(viewModel)
             }
         }
@@ -54,20 +57,30 @@ class AddActivities : ComponentActivity() {
 @Composable
 fun HostComposable(viewModel : AddActivitiesViewModel){
     val navController = rememberNavController()
-    SetupNavGraph(navController = navController)
+    SetupNavGraph(navController = navController, viewModel)
 }
 
 @Composable
 fun AddActivitiesMain(navController : NavHostController, viewModel : AddActivitiesViewModel){
 
-    val gardensList : List<String> by viewModel.gardenList.observeAsState(listOf())
+    val gardensList = viewModel.getGardens().observeAsState()
+    val gardensNameList = arrayListOf<String>()
+
+
+    if (gardensList.value != null){
+        for (garden in gardensList.value!!){
+            gardensNameList.add(garden.name)
+        }
+    }
+
+    Log.i("DBX2", "${gardensList}")
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
     ) { innerPadding ->
         Cards(
             navController,
-            gardensList
+            gardensNameList
         )
     }
 }
@@ -81,8 +94,16 @@ fun Cards(
 ){
 
     var currentGarden by remember {
-        mutableStateOf(garensList[0])
+        if (garensList.size != 0){
+            mutableStateOf(garensList[0])
+        }
+        else {
+            mutableStateOf("انتخاب باغ")
+        }
     }
+
+
+
 
     var clicked = remember {
         mutableStateOf(false)
@@ -228,6 +249,7 @@ fun GardenSpinner(
             .fillMaxWidth(1f),
     ){
         Row(modifier = Modifier
+            .width(350.dp)
             .padding(vertical = 15.dp, horizontal = 20.dp)
             .clip(shape = MaterialTheme.shapes.large)
             .shadow(elevation = 3.dp)
@@ -256,7 +278,7 @@ fun GardenSpinner(
             )
             Text(
                 text = currentGarden,
-                style = MaterialTheme.typography.h5,
+                style = MaterialTheme.typography.body2,
                 modifier = Modifier.padding(5.dp)
                 )
 

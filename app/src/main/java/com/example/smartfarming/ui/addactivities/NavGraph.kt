@@ -9,7 +9,8 @@ import com.example.smartfarming.ui.addactivities.viewModel.AddActivitiesViewMode
 
 @Composable
 fun SetupNavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    viewModel: AddActivitiesViewModel
 ){
     // Routes
     val homeActivity = ActivitiesScreen.HomeActivity.name
@@ -23,7 +24,6 @@ fun SetupNavGraph(
             composable(
                 route = ActivitiesScreen.HomeActivity.name
             ){
-                val viewModel = viewModel<AddActivitiesViewModel>()
                 AddActivitiesMain(navController, viewModel)
             }
             composable(

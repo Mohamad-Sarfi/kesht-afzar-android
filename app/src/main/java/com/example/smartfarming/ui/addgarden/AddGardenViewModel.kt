@@ -4,12 +4,15 @@ import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
+import com.example.smartfarming.data.repositories.GardenRepo
+import com.example.smartfarming.data.room.entities.Garden
 import com.google.android.libraries.maps.model.LatLng
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 
-class AddGardenViewModel : ViewModel() {
+class AddGardenViewModel(val repo : GardenRepo) : ViewModel() {
     val MAX_STEPS = 4
 
     val typeArray = MutableLiveData<List<String>>().apply {
@@ -127,4 +130,30 @@ class AddGardenViewModel : ViewModel() {
 
 
 
+    // Database
+    fun addGardenToDb(garden : Garden){
+        viewModelScope.launch(Dispatchers.IO) {
+            repo.insert(garden)
+        }
+    }
+
+    fun getGardens() : LiveData<List<Garden>>{
+        var list = liveData<List<Garden>> {  }
+        viewModelScope.launch(Dispatchers.IO) {
+            list = repo.getGardens().asLiveData()
+        }
+        return list
+    }
+
+}
+
+class AddGardenViewModelFactory(private val repo : GardenRepo) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(AddGardenViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return AddGardenViewModel(repo) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+
+    }
 }

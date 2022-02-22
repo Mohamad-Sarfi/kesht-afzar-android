@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.example.smartfarming.data.room.GardenDb
 import com.example.smartfarming.databinding.ActivityMainBinding
 import com.example.smartfarming.ui.addactivities.AddActivities
 

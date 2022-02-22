@@ -1,18 +1,19 @@
 package com.example.smartfarming.ui.addgarden
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -27,15 +28,22 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.smartfarming.MainActivity
 import com.example.smartfarming.R
+import com.example.smartfarming.FarmApplication
+import com.example.smartfarming.data.room.entities.Garden
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
 import com.example.smartfarming.ui.addactivities.ui.theme.lightGray
 
 class AddGarden : ComponentActivity() {
+
+    private val viewModel : AddGardenViewModel by viewModels{
+        AddGardenViewModelFactory((application as FarmApplication).repo)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -45,7 +53,7 @@ class AddGarden : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MainGreen
                 ) {
-                    HostCompose()
+                    HostCompose(viewModel)
                 }
             }
         }
@@ -53,9 +61,9 @@ class AddGarden : ComponentActivity() {
 }
 
 @Composable
-fun HostCompose(){
+fun HostCompose(viewModel: AddGardenViewModel){
     val navController = rememberNavController()
-    val viewModel : AddGardenViewModel = AddGardenViewModel()
+
     GardenNavGraph(navController = navController, viewModel)
 }
 
@@ -67,6 +75,8 @@ fun AddGardenCompose(
 
 
     val context = LocalContext.current
+    val activity = LocalContext.current as Activity
+
     var step = viewModel.step.observeAsState()
     val gardenName by viewModel.gardenName.observeAsState("")
     val isLocationSet by viewModel.isLocationSet.observeAsState()
@@ -201,7 +211,31 @@ fun AddGardenCompose(
 
                 Button(
                     onClick = {
-                        viewModel.incrementStep()
+                        if (step.value != viewModel.MAX_STEPS){
+                            viewModel.incrementStep()
+                        } else {
+                            val garden = Garden(
+                                0,
+                                gardenName,
+                                gardenAge!!.toInt(),
+                                "${latLong!!["lat"]} - ${latLong!!["long"]}",
+                                "pistachios",
+                                varietiesList.value.joinToString(","),
+                                "Ros",
+                                "classic",
+                                irrigationDuration!!.toDouble(),
+                                irrigationVolume!!.toDouble(),
+                                gardenArea!!.toDouble(),
+                                0
+                            )
+                            viewModel.addGardenToDb(garden)
+
+                            val gardens = viewModel.getGardens()
+                            Log.i("DBR1", "${gardens.value}")
+                            val intent = Intent(context, MainActivity::class.java)
+                            context.startActivity(intent)
+                            activity.finish()
+                        }
                     },
                     shape = MaterialTheme.shapes.large,
                     colors = ButtonDefaults.buttonColors(
@@ -283,6 +317,10 @@ fun ManageTopCard(step: Int){
                 .padding(8.dp)
         )
     }
+}
+
+fun addTodatabase(){
+
 }
 
 @Preview(showBackground = true)
