@@ -1,19 +1,33 @@
 package com.example.smartfarming.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import android.util.Log
+import androidx.lifecycle.*
+import com.example.smartfarming.data.repositories.GardenRepo
+import com.example.smartfarming.data.room.entities.Garden
+import com.example.smartfarming.ui.gardens.GardensViewModel
+import kotlinx.coroutines.launch
+import java.lang.IllegalArgumentException
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(val repo : GardenRepo) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    fun getGardens() : LiveData<List<Garden>> {
+        var gardensList = liveData<List<Garden>>(){}
+        viewModelScope.launch {
+            gardensList = repo.getGardens().asLiveData()
+        }
+
+        return gardensList
     }
-    val text: LiveData<String> = _text
-    val gardensNumber = numberOfGardens()
 
-    private fun numberOfGardens() : Int {
-        return 0
+}
+
+class HomeViewModelFactory(val repo : GardenRepo) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return HomeViewModel(repo) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 
 }

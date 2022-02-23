@@ -39,11 +39,7 @@
             android:exported="false"
             android:label="@string/title_activity_add_garden"
             android:theme="@style/Theme.SmartFarming" />
-        <activity
-            android:name=".ui.addgarden.GoogleMaps.MapActivity"
-            android:exported="false"
-            android:label="mapActivity"
-            android:theme="@style/Theme.SmartFarming" />
+
         <activity
             android:name=".ui.addactivities.AddActivities"
             android:exported="false"
@@ -57,6 +53,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
+            android:theme="@style/Theme.SmartFarming"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

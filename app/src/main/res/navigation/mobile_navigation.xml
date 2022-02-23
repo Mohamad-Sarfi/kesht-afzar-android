@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/navigation_gardens"
-        android:name="com.example.smartfarming.ui.dashboard.GardensFragment"
+        android:name="com.example.smartfarming.ui.gardens.GardensFragment"
         android:label="@string/title_gardens"
         tools:layout="@layout/fragment_gardens">
         <action

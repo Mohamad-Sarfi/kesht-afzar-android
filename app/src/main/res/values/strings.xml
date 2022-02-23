@@ -55,6 +55,15 @@
         <item>10</item>
         <item>10+</item>
     </string-array>
+
+    <string-array name="garden_activities">
+        <item>آبیاری</item>
+        <item>تغذیه</item>
+        <item>سم پاشی</item>
+        <item>حرس</item>
+        <item>شخم</item>
+    </string-array>
+
     <string name="title_activity_add_user">AddUserActivity</string>
     <string name="title_activity_add_activities">AddActivities</string>
     <string name="title_activity_irrigation">IrrigationActivity</string>

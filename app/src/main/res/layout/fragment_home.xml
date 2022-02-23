@@ -6,41 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
-        android:id="@+id/addFirstGardenLayout"
+    <androidx.compose.ui.platform.ComposeView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="10dp"
-        android:layout_marginTop="80dp"
-        >
-
-        <ImageView
-            android:id="@+id/addGardenIV"
-            android:layout_width="162dp"
-            android:layout_height="147dp"
-            android:src="@drawable/sprout"
-            android:layout_marginBottom="13dp"
-         />
-
-        <TextView
-            android:id="@+id/addGardenTV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="اولین باغ خود را اضافه کنید"
-            tools:layout_editor_absoluteX="169dp"
-            tools:layout_editor_absoluteY="163dp"
-            style="@style/titleTexts"
-            android:textSize="23sp"
-            />
-    </LinearLayout>
-
-
-
-
+        android:layout_height="match_parent"
+        android:id="@+id/homeCompose"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
