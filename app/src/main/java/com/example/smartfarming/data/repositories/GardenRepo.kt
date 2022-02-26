@@ -20,5 +20,11 @@ class GardenRepo(
         gardenDao.insert(garden)
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun getGardenByName(gardenName : String) : Garden {
+        return gardenDao.getGardenByName(gardenName)
+    }
+
 
 }

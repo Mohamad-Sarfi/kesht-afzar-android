@@ -5,10 +5,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
-import android.location.GnssAntennaInfo
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,7 +14,6 @@ import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
@@ -27,20 +24,15 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.example.smartfarming.ui.addactivities.ActivitiesScreen
-import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
-import com.example.smartfarming.ui.addactivities.ui.theme.borderGray
-import com.google.android.gms.maps.model.Marker
+import com.example.smartfarming.ui.addactivities.ui.theme.BorderGray
 import com.google.android.libraries.maps.CameraUpdateFactory
 import com.google.android.libraries.maps.GoogleMap
 import com.google.android.libraries.maps.MapView
@@ -49,9 +41,6 @@ import com.google.android.libraries.maps.model.MarkerOptions
 import com.google.android.libraries.maps.model.Polygon
 import com.google.android.libraries.maps.model.PolygonOptions
 import com.google.maps.android.ktx.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import java.lang.IllegalStateException
 
 val REQUEST_LOCATION_PERMISSION = 1
@@ -80,7 +69,7 @@ fun MapCompose(
             Text(
                 text = "موقعیت حدودی مزرعه خود را روی نقشه مشخص کنید",
                 style = MaterialTheme.typography.subtitle1,
-                color = borderGray
+                color = BorderGray
             )
         }
         Box(
@@ -106,13 +95,13 @@ fun MapCompose(
                 modifier = Modifier.padding(12
                     .dp),
                 style = MaterialTheme.typography.body1,
-                color = borderGray
+                color = BorderGray
             )
             Text(
                 text = if (location!!["long"]!!.length >1 ) location!!["long"]!!.substring(0, 5) else location!!["long"]!!,
                 modifier = Modifier.padding(12.dp),
                 style = MaterialTheme.typography.body1,
-                color = borderGray
+                color = BorderGray
             )
         }
         Button(

@@ -15,8 +15,6 @@ import java.lang.IllegalArgumentException
 
 class GardensViewModel(val repo : GardenRepo) : ViewModel() {
 
-
-
     fun getGardens() : LiveData<List<Garden>> {
         var gardensList = liveData<List<Garden>>(){}
        viewModelScope.launch {

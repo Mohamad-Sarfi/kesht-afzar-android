@@ -1,10 +1,6 @@
 package com.example.smartfarming.ui.addactivities.Screens
 
-import android.content.Context
-import android.os.Build
 import android.util.Log
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -21,10 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
-import com.example.smartfarming.ui.addactivities.ui.theme.lightGray
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.time.LocalDateTime
+import com.example.smartfarming.ui.addactivities.ui.theme.LightGray
 import java.util.*
 
 @Composable
@@ -131,7 +124,7 @@ fun DateSpinner(
                 .padding(15.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .width(110.dp)
-                .background(lightGray)
+                .background(LightGray)
                 .clickable {
                     expanded = !expanded
                 }

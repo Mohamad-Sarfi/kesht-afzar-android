@@ -17,6 +17,6 @@ interface GardenDao {
     fun getAllGardens() : Flow<List<Garden>>
 
     @Query("SELECT * FROM garden_table WHERE name = :name")
-    fun getGardenByName(name : String) : Garden
+    suspend fun getGardenByName(name : String) : Garden
 
 }

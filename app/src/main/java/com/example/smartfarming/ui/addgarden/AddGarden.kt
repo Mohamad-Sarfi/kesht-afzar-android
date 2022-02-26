@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -36,7 +35,7 @@ import com.example.smartfarming.FarmApplication
 import com.example.smartfarming.data.room.entities.Garden
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
-import com.example.smartfarming.ui.addactivities.ui.theme.lightGray
+import com.example.smartfarming.ui.addactivities.ui.theme.LightGray
 
 class AddGarden : ComponentActivity() {
 
@@ -269,7 +268,7 @@ fun stepCircle(
         targetValue = if (step == numberTag) 38.dp else 10.dp
     )
     val circleColor by animateColorAsState(
-        if (step == numberTag) Color.White else lightGray
+        if (step == numberTag) Color.White else LightGray
     )
     Column(modifier = Modifier
         .wrapContentSize(Alignment.Center)

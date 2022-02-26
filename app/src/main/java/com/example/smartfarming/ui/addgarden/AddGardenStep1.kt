@@ -1,21 +1,13 @@
 package com.example.smartfarming.ui.addgarden
 
-import android.util.Log
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.ArrowDropUp
-import androidx.compose.material.icons.filled.ArrowUpward
-import androidx.compose.material.icons.outlined.AccountTree
-import androidx.compose.material.icons.rounded.Cached
-import androidx.compose.material.icons.rounded.Cake
 import androidx.compose.material.icons.rounded.Park
 import androidx.compose.material.icons.rounded.Pin
 import androidx.compose.runtime.*
@@ -28,12 +20,11 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
-import com.example.smartfarming.ui.addactivities.ui.theme.lightGray
+import com.example.smartfarming.ui.addactivities.ui.theme.LightGray
 
 @Composable
 fun AddGardenStep1(
@@ -154,7 +145,7 @@ fun PlanVarietySpinner(
             .padding(15.dp)
             .size(width = 260.dp, height = 62.dp)
             .clip(MaterialTheme.shapes.large)
-            .background(lightGray)
+            .background(LightGray)
             .clickable {
                 expanded = !expanded
             }

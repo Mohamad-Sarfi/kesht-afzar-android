@@ -69,6 +69,7 @@
     <string name="title_activity_irrigation">IrrigationActivity</string>
     <string name="title_activity_add_garden">AddGarden</string>
     <string name="title_activity_maps">MapsActivity</string>
+    <string name="title_activity_garden_profile">GardenProfileActivity</string>
 
 
 </resources>

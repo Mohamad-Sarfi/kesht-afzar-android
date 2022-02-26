@@ -6,23 +6,18 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.outlined.AvTimer
-import androidx.compose.material.icons.outlined.Face
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.GardenTitle
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
-import com.example.smartfarming.ui.addactivities.ui.theme.borderGray
+import com.example.smartfarming.ui.addactivities.ui.theme.BorderGray
 import com.example.smartfarming.ui.addactivities.ui.theme.greenPesticide
 import kotlin.math.roundToInt
 
@@ -133,7 +128,7 @@ fun IrrigationFields() {
                 if (irrigationDate["year"] == null) "تاریخ آبیاری" else
                     "${irrigationDate["year"]}/${irrigationDate["month"]}/${irrigationDate["day"]}",
                 style = MaterialTheme.typography.body1,
-                color = if (irrigationDate["year"] == null) borderGray else MainGreen,
+                color = if (irrigationDate["year"] == null) BorderGray else MainGreen,
                 modifier = Modifier
             )
         }
@@ -145,7 +140,7 @@ fun IrrigationFields() {
                 Text(
                     text = "مدت آبیاری",
                     style = MaterialTheme.typography.body1,
-                    color = borderGray
+                    color = BorderGray
                 )
             },
             modifier = Modifier
@@ -181,7 +176,7 @@ fun IrrigationFields() {
         Text(
             text = "حجم آبیاری",
             style = MaterialTheme.typography.body2,
-            color = borderGray,
+            color = BorderGray,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(top = 10.dp)
@@ -204,7 +199,7 @@ fun IrrigationFields() {
         Text(
             text = sliderPosition.toString() + "  لیتر",
             style = MaterialTheme.typography.body1,
-            color = borderGray,
+            color = BorderGray,
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
 

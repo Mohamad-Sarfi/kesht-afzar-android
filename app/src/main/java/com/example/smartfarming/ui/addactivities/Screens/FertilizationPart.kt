@@ -5,26 +5,18 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Edit
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.material.icons.outlined.Dashboard
-import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Edit
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.constraintlayout.compose.ConstraintLayout
-import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.GardenTitle
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
-import com.example.smartfarming.ui.addactivities.ui.theme.borderGray
+import com.example.smartfarming.ui.addactivities.ui.theme.BorderGray
 import com.example.smartfarming.ui.addactivities.ui.theme.greenPesticide
-import com.example.smartfarming.ui.addactivities.ui.theme.lightGreenPesticide
 
 val FIELD_HEIGHT = 55.dp
 val FIELD_WIDTH = 215.dp
@@ -123,7 +115,7 @@ fun FertilizationFields(){
                 Text(
                     text = "نام کود",
                     style = MaterialTheme.typography.body1,
-                    color = borderGray
+                    color = BorderGray
                 )
             },
             modifier = Modifier
@@ -173,7 +165,7 @@ fun FertilizationFields(){
                 if (fertilizationDate["year"] == null) "تاریخ تغذیه" else
                 "${fertilizationDate["year"]}/${fertilizationDate["month"]}/${fertilizationDate["day"]}",
                 style = MaterialTheme.typography.body1,
-                color = if (fertilizationDate["year"] == null) borderGray else MainGreen,
+                color = if (fertilizationDate["year"] == null) BorderGray else MainGreen,
                 modifier = Modifier
             )
         }
@@ -194,7 +186,7 @@ fun FertilizationFields(){
                 Text(
                     text = "توضیحات",
                     style = MaterialTheme.typography.body1,
-                    color = borderGray
+                    color = BorderGray
                 )
             },
             modifier = Modifier

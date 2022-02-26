@@ -28,9 +28,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.smartfarming.R
 import com.example.smartfarming.ui.addactivities.ui.theme.SmartFarmingTheme
 import com.example.smartfarming.ui.addactivities.viewModel.AddActivitiesViewModel
-import com.example.smartfarming.ui.adduser.ui.theme.fertilizer
-import com.example.smartfarming.ui.adduser.ui.theme.pesticide
-import com.example.smartfarming.ui.adduser.ui.theme.watering
+import com.example.smartfarming.ui.adduser.ui.theme.RedFertilizer
+import com.example.smartfarming.ui.adduser.ui.theme.YellowPesticide
+import com.example.smartfarming.ui.adduser.ui.theme.BlueWatering
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.navigation.NavHostController
@@ -130,11 +130,11 @@ fun Cards(
                 .padding(10.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Card("آبیاری", R.drawable.watering, watering, clicked) {
+            Card("آبیاری", R.drawable.watering, BlueWatering, clicked) {
                 clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.IrrigationBody.name)
             }
-            Card("تغذیه", R.drawable.npk, fertilizer, clicked) {
+            Card("تغذیه", R.drawable.npk, RedFertilizer, clicked) {
                 clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.FertilizationBody.name)
             }
@@ -144,7 +144,7 @@ fun Cards(
                 .padding(2.dp)
                 .align(Alignment.CenterHorizontally)
         ) {
-            Card("محلول پاشی", R.drawable.pesticide1, pesticide,clicked ){
+            Card("محلول پاشی", R.drawable.pesticide1, YellowPesticide,clicked ){
                 clicked.value = !clicked.value
                 navigateToScreens(navController, currentGarden, ActivitiesScreen.PesticideBody.name)
             }

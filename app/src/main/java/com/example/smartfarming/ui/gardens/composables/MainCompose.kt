@@ -36,32 +36,25 @@ import com.example.smartfarming.ui.addactivities.AddActivities
 import com.example.smartfarming.ui.addactivities.ui.theme.*
 import com.example.smartfarming.ui.addgarden.AddGarden
 import com.example.smartfarming.ui.gardens.GardensViewModel
+import com.example.smartfarming.ui.home.composables.MyFAB
 
 
 @Composable
-fun MainCompose(viewModel: GardensViewModel){
+fun GardenCompose(viewModel: GardensViewModel){
 
     val gardenList by viewModel.getGardens().observeAsState()
     val contex = LocalContext.current
+
+    var fabExtended by remember {
+        mutableStateOf(false)
+    }
 
     Scaffold(
         topBar = {
         },
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    val intent = Intent(contex, AddActivities::class.java)
-                    contex.startActivity(intent) },
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier.size(65.dp),
-                backgroundColor = MainGreen
-            ) {
-                Icon(
-                    painterResource(id = R.drawable.shovel),
-                    contentDescription = "",
-                    modifier = Modifier.size(35.dp),
-                    tint = Color.White
-                )
+            MyFAB(context = contex, fabExtended = fabExtended) {
+                fabExtended =! fabExtended
             }
         }
     ) {
@@ -122,89 +115,7 @@ fun MainCompose(viewModel: GardensViewModel){
 }
 
 
-@Composable
-fun GardenCard(garden : Garden){
-    
-    // States
-    var expanded by remember {
-        mutableStateOf(false)
-    }
 
-    // Animations
-    val columnHeight by animateDpAsState(
-        targetValue = if (expanded) 190.dp else 130.dp,
-        animationSpec = spring(
-            dampingRatio = Spring.DampingRatioMediumBouncy,
-            stiffness = Spring.StiffnessLow
-        )
-    )
-
-    val iconSize by animateDpAsState(
-        targetValue = if (expanded) 70.dp else 60.dp
-    )
-
-    val horizontalGreenGradient = Brush.horizontalGradient(
-        colors = listOf(
-            LightGreen1,
-            LightGreen,
-            LightGreen
-        )
-    )
-
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth(1f)
-            .height(columnHeight)
-            .padding(horizontal = 10.dp, vertical = 10.dp)
-            .clip(RoundedCornerShape(20.dp))
-            .clickable {
-                expanded = !expanded
-            }
-            .shadow(elevation = 3.dp, shape = RoundedCornerShape(20.dp), clip = true)
-            .background(LightGreen)
-        ,
-    ) {
-        // Profile pic column
-        Column(
-            modifier = Modifier
-                .align(Alignment.CenterVertically)
-                .width(120.dp)
-                .fillMaxHeight()
-                .background(LightGreen1),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            Icon(painter = painterResource(id = R.drawable.sprout_white),
-                contentDescription = "",
-                modifier = Modifier
-                    .size(iconSize),
-                tint = Color.White
-            )
-
-        }
-
-        // Info column
-        Column(modifier = Modifier
-            .fillMaxHeight()
-            .fillMaxWidth()
-            .padding(20.dp),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = garden.name,
-                style = MaterialTheme.typography.h5,
-                color = MainGreen
-            )
-            Row() {
-
-            }
-        }
-
-    }
-}
 
 @Composable
 fun ActivitySticker(job : String){

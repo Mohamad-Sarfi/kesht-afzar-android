@@ -18,7 +18,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SmartFarming">
-
+        <activity
+            android:name=".ui.gardens.GardenProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_garden_profile"
+            android:theme="@style/Theme.SmartFarming" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
@@ -39,7 +43,6 @@
             android:exported="false"
             android:label="@string/title_activity_add_garden"
             android:theme="@style/Theme.SmartFarming" />
-
         <activity
             android:name=".ui.addactivities.AddActivities"
             android:exported="false"
@@ -51,10 +54,15 @@
             android:label="@string/title_activity_add_user"
             android:theme="@style/Theme.SmartFarming" />
         <activity
+            android:name=".ui.gardenprofile.GardenProfileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_user"
+            android:theme="@style/Theme.SmartFarming" />
+        <activity
             android:name=".MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.SmartFarming"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:theme="@style/Theme.SmartFarming">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,6 +70,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>

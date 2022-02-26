@@ -1,11 +1,14 @@
 package com.example.smartfarming.ui.home.composables
 
 import android.content.Intent
+import android.util.Log
 import android.widget.ImageButton
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -26,6 +29,7 @@ import com.example.smartfarming.R
 import com.example.smartfarming.data.room.entities.Garden
 import com.example.smartfarming.ui.addactivities.AddActivities
 import com.example.smartfarming.ui.addactivities.ui.theme.MainGreen
+import com.example.smartfarming.ui.gardens.composables.GardenCard
 import com.example.smartfarming.ui.home.HomeViewModel
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -40,81 +44,38 @@ fun HomeCompose(viewModel : HomeViewModel){
     var fabExtended by remember {
         mutableStateOf(false)
     }
-    val fabWidthAnimate by animateDpAsState(
-        if(fabExtended) 150.dp else 65.dp
-    )
+
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    if (!fabExtended) {
-                        fabExtended = !fabExtended
-                    }
-                    else{
-                        val intent = Intent(context, AddActivities::class.java)
-                        context.startActivity(intent)
-                        fabExtended = !fabExtended
-                        }
-                    },
-                shape = RoundedCornerShape(15.dp),
-                modifier = Modifier.size(width = fabWidthAnimate, height = 65.dp),
-                backgroundColor = MainGreen
-            ) {
-
-                Row(
-                    Modifier
-                        .fillMaxWidth()
-                        .padding(5.dp),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    AnimatedVisibility(
-                        fabExtended,
-                        enter = slideInHorizontally()
-                                + expandHorizontally(
-                                expandFrom = Alignment.End
-                            ) + fadeIn(
-                                initialAlpha = 0.3f
-                            ),
-                        exit = slideOutHorizontally() + shrinkHorizontally() + fadeOut()
-                    ) {
-                        Text(
-                            text = "ثبت فعالیت",
-                            style = MaterialTheme.typography.subtitle1,
-                            modifier = Modifier.padding(6.dp),
-                            color = Color.White
-                        )
-                    }
-
-                    Icon(
-                        painterResource(id = R.drawable.shovel),
-                        contentDescription = "",
-                        modifier = Modifier
-                            .padding(4.dp)
-                            .size(32.dp),
-                        tint = Color.White
-                    )
-
-                }
+            MyFAB(context = context, fabExtended = fabExtended) {
+                fabExtended =! fabExtended
             }
         }
     ) {
 
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+        ){
+            Column(
+                modifier = Modifier
+                    .padding(5.dp)
+                    .height(250.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = Alignment.End
 
-
+            ){
+                ManageGardenPreview(gardensList)
+            }
+        }
     }
 }
 
 @Composable
-fun ManageGardenPreview(gardenList : List<Garden>){
-    if (gardenList.isEmpty()){
-        Column(
-            modifier = Modifier
-                .fillMaxWidth(1f)
-                .padding(10.dp)
-        ) {
+fun ManageGardenPreview(gardenList : List<Garden>?){
+    if (gardenList.isNullOrEmpty()){
             Image(
                 painter = painterResource(id = R.drawable.sprout),
                 contentDescription = "",
@@ -128,17 +89,18 @@ fun ManageGardenPreview(gardenList : List<Garden>){
                 style = MaterialTheme.typography.body1,
                 color = MainGreen
             )
-
-        }
     } else {
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(5.dp)
-                .height(250.dp)
-                .verticalScroll(rememberScrollState())
-        ) {
-
+            Text(
+                text = "باغداری شما",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier
+                    .padding(vertical = 3.dp, horizontal = 10.dp),
+                color = MainGreen
+            )
+            LazyColumn(){
+                items(gardenList){
+                    GardenCard(garden = it)
+                }
         }
     }
 }
